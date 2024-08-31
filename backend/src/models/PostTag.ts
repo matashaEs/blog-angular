@@ -5,10 +5,14 @@ import { Tag } from "./Tag";
  @Table
  export class PostTag extends Model<PostTag>{
     @ForeignKey(()=>Post)
-    @Column
+    @Column({
+        allowNull: false
+    })
     postId?: number
 
     @ForeignKey(()=>Tag)
-    @Column
+    @Column({
+        allowNull: false
+    })
     tagId?: number
  }

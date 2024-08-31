@@ -1,4 +1,5 @@
-import { Column, Model, Table } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, Model, Table } from "sequelize-typescript";
+import { User } from "./User";
 
  @Table
  export class Category extends Model<Category> {
@@ -13,4 +14,13 @@ import { Column, Model, Table } from "sequelize-typescript";
             unique: true
     }) 
     slug: string=''
+
+    @ForeignKey(()=>User)
+    @Column({
+      allowNull: false
+    })
+    userId?: number;
+
+    @BelongsTo(()=>User)
+    user?: User;
  }
