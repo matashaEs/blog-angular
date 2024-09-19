@@ -3,6 +3,7 @@ import { User } from "./User";
 import { Comment } from "./Comment";
 import { Tag } from "./Tag";
 import { PostTag } from "./PostTag";
+import { Category } from './Category';
 
 @Table
 export class Post extends Model<Post> {
@@ -22,11 +23,20 @@ export class Post extends Model<Post> {
   }) 
   slug?: string;
 
+  @ForeignKey(()=>Category)
+  @Column({
+    allowNull: false
+  })
+  categoryId?: number;
+
   @ForeignKey(()=>User)
   @Column({
     allowNull: false,
   }) 
   userId?: number;
+
+  @BelongsTo(()=>Category)
+  category?: Category;
 
   @BelongsTo(()=>User)
   user?: User;
@@ -35,5 +45,5 @@ export class Post extends Model<Post> {
   comments: Comment[] = []
 
   @BelongsToMany(()=>Tag, ()=>PostTag)
-    posts: Post[] = []
+    tags: Tag[] = []
 }

@@ -32,3 +32,11 @@ export const deleteTag = (id: number) => {
         }
     });
 }
+
+export const getTagsById = (ids: number[]) => {
+    return Tag.findAll({
+        where: {
+            id: ids
+        }
+    })
+}
