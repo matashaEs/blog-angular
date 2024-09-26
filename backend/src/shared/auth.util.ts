@@ -3,13 +3,19 @@ import { Request, Response } from "express";
 import { User } from '../models/User';
 const secretKey = process.env.JWT_SECRET!;
 
-export function generateToken(userId: number): string{
+export function generateToken(userId: number, expiresIn='1h'): string{
     const payload = {userId};
     const token = jwt.sign(payload, secretKey, {
-        expiresIn: '1h'
+        expiresIn
     });
 
     return token;
+}
+
+export function encryptPassword(password: string): string{
+    const encryptedPassword = jwt.sign(password, secretKey);
+
+    return encryptedPassword;
 }
 
 export function verifyToken(token: string) {
