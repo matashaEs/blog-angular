@@ -12,8 +12,6 @@ import postRoutes from './routes/post.routes';
 import commentRoutes from './routes/comment.routes';
 import authRoutes from './routes/auth.routes';
 import logger from './shared/logger.util';
-import { Category } from './models/Category';
-
 
 const app = express();
 const port = process.env.PORT || 3000;

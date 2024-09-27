@@ -17,3 +17,26 @@ export const addUser = async(email: string, password: string, name: string) => {
 
     return user.save();
 }
+
+export const updateUser = async ({name, status, id, password}: {
+    name?: string,
+    status?: "active" | "pending",
+    id: number,
+    password?: string
+})=>{
+        const user = await User.findByPk(id);
+
+        if(!user)
+            throw new Error('User not found.');
+
+        if(name)
+            user.name = name;
+
+        if(status)
+            user.status = status;
+
+        if(password)
+            user.password = password;
+
+        return user.save();
+}
