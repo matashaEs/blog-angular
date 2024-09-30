@@ -12,10 +12,12 @@ import postRoutes from './routes/post.routes';
 import commentRoutes from './routes/comment.routes';
 import authRoutes from './routes/auth.routes';
 import logger from './shared/logger.util';
+import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 

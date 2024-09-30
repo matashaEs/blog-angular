@@ -5,12 +5,18 @@ import { User } from "../models/User";
 
 export const getAllPosts = ()=> {
     return Post.findAll({
-        include:[Category, User, Tag]
+        include:[Category, {
+            model: User,
+            attributes: {
+                exclude: ['password']
+            }
+        }, Tag]
     });
 }
 
 export const getPostBySlug = (slug: string)=> {
      return Post.findOne({
+        include:[Category],
         where: {
             slug
         }

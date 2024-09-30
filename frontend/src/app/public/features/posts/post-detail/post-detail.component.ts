@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { PostService } from '../../../../core/services/post.service';
+import { PostInterface } from '../../../../core/interfaces/models/post.model.interface';
+import moment from 'moment';
 
 @Component({
   selector: 'app-post-detail',
@@ -12,4 +15,18 @@ import { RouterLink } from '@angular/router';
 })
 export class PostDetailComponent {
 
+  moment: any = moment;
+
+  route = inject(ActivatedRoute);
+  postService = inject(PostService);
+
+  post?: PostInterface;
+
+  constructor() {
+    this.route.params.subscribe((params) => {
+      this.postService.getPostBySlug(params['slug']).subscribe((data) => {
+        this.post = data;
+      })
+    })
+  }
 }

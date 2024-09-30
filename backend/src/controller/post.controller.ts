@@ -126,3 +126,17 @@ export const deletePostController = async(req: Request, res: Response) => {
 
      return res.json(post);
 }
+
+export const getPostBySlugController = async(req: Request, res: Response) => {
+    const {slug} = req.params;
+
+    if(!slug)
+        return res.status(400).json({message: "Invalid slug"});
+
+    const post = await getPostBySlug(slug);
+
+    if(!post)
+        return res.status(404).json({message: "Post not found"});
+
+    return res.json(post);
+}
