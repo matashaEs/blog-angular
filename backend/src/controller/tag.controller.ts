@@ -2,6 +2,8 @@ import {Request, Response } from "express";
 import { addTag, deleteTag, getAllTags, getTagById, getTagBySlug } from "../services/tag.service";
 import { z } from "zod";
 import { generateSlug } from "../shared/general.util";
+import { getPostById } from "../services/post.service";
+import { getPostTags } from "../services/post-tag.service";
 
 
 export const getTagsController = async(req: Request, res: Response) => {
@@ -86,4 +88,19 @@ export const deleteTagController = async(req: Request, res: Response) => {
     await deleteTag(id);
 
     return res.json(tag);
+}
+
+export const getPostTagsController = async(req: Request, res: Response) => {
+    let postId: any = req.params.postId;
+    postId = parseInt(postId);
+
+    if(!postId) return res.status(400).json({message: 'Post id is required'});
+
+    const post = await getPostById(postId);
+
+    if(!post) return res.status(400).json({message: 'Post not found'});
+
+    const postTags = await getPostTags(postId);
+
+    return res.json(postTags);
 }

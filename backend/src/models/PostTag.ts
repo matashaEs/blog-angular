@@ -1,4 +1,4 @@
-import { Table, Model, ForeignKey, Column } from "sequelize-typescript";
+import { Table, Model, ForeignKey, Column, BelongsTo } from "sequelize-typescript";
 import { Post } from "./Post";
 import { Tag } from "./Tag"; 
 
@@ -15,5 +15,11 @@ import { Tag } from "./Tag";
         allowNull: false
     })
     tagId?: number
+
+    @BelongsTo(()=>Post)
+    post?: Post
+
+    @BelongsTo(()=>Tag)
+    tag?: Tag
  }
  

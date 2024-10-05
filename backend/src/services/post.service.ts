@@ -38,7 +38,7 @@ export const getPostById = (id: number) => {
     return Post.findByPk(id)
 }
 
-export const updatePost = async (id: number, title: string, content: string, categoryId: number, slug?: string) => {
+export const updatePost = async (id: number, title?: string, content?: string, categoryId?: number, slug?: string) => {
     const post = await getPostById(id);
     
     if(!post)
