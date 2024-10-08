@@ -65,4 +65,12 @@ export class AuthService {
       email, 
       password})
   }
- }
+
+  forgotPassword(email: string) {
+    return this.http.post(environment.BACKEND_API_URL+'/api/auth/forgot-password', {email});
+  }
+
+  resetPassword({token, password}: {token: string, password: string}) {
+    return this.http.post(environment.BACKEND_API_URL+'/api/auth/reset-password', {token, password});
+  }
+}

@@ -182,15 +182,14 @@ export const confirmEmailController = async(req: Request, res: Response) => {
 
 export const forgotPasswordController = async(req: Request, res: Response) => {
     const schema = z.object({
-        email: z.string().email(),
-        callbackUrl: z.string().url()
+        email: z.string().email()
     });
 
     const schemaValidator = schema.safeParse(req.body);
     if(!schemaValidator.success){
         return res.status(400).json(schemaValidator.error); 
     } 
-    const { email, callbackUrl } = schemaValidator.data;  
+    const { email } = schemaValidator.data;  
 
     const user = await getUserByEmail(email);
     if(!user)
@@ -201,7 +200,7 @@ export const forgotPasswordController = async(req: Request, res: Response) => {
     await deleteTokens(user.get('id'));
 
     await addToken(token, 'reset', user.get('id'));
-    await sendForgotPasswordEmail(email, token, callbackUrl);
+    await sendForgotPasswordEmail(email, token);
 
     return res.status(200).json({message: 'Email.sent.'});
 }
