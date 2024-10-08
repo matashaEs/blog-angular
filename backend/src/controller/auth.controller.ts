@@ -177,7 +177,7 @@ export const confirmEmailController = async(req: Request, res: Response) => {
 
     await deleteTokens(userId!);
 
-    return res.status(200).json({message: 'Email comfirmed.'});
+    res.redirect(process.env.FRONTEND_URL+'/auth/login');
 }
 
 export const forgotPasswordController = async(req: Request, res: Response) => {

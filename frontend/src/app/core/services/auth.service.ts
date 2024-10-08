@@ -38,7 +38,7 @@ export class AuthService {
         this.router.navigate(['/']);
       },
       error: (e)=>{
-        alert('Failed');
+
       }
     })
 
@@ -50,4 +50,19 @@ export class AuthService {
     localStorage.removeItem('session');
     this.router.navigate(['/auth/login']);
   }
-}
+  
+  register({
+    name,
+    email,
+    password
+  }: {
+    name: string,
+    email: string,
+    password: string
+  }) {
+    return this.http.post(environment.BACKEND_API_URL+'/api/auth/register', {
+      name,
+      email, 
+      password})
+  }
+ }
