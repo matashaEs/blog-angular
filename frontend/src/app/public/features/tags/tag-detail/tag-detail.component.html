@@ -1,2 +1,4 @@
-<h1>Tag: {{ tag }}</h1>
-<app-posts-list></app-posts-list>
+@if(tag) {
+    <h1>Tag: {{ tag.name }}</h1>
+    <app-posts-list [tagId]="tag.id"></app-posts-list>
+}

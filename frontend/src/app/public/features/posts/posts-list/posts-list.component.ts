@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { AfterContentInit, Component, Input, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PostService } from '../../../../core/services/post.service';
 import { PostInterface } from '../../../../core/interfaces/models/post.model.interface';
@@ -12,12 +12,17 @@ import { PostInterface } from '../../../../core/interfaces/models/post.model.int
   templateUrl: './posts-list.component.html',
   styleUrl: './posts-list.component.scss'
 })
-export class PostsListComponent {
+export class PostsListComponent implements AfterContentInit{
+  @Input() categoryId?: number;
+  @Input() tagId?: number;
   posts: PostInterface[] = [];
   postService = inject(PostService);
 
-  constructor() {
-    this.postService.getPosts().subscribe((data) => {
+  ngAfterContentInit(): void {
+    this.postService.getPosts({
+      categoryId: this.categoryId,
+      tagId: this.tagId
+    }).subscribe((data) => {
       this.posts = data;
     })
   }

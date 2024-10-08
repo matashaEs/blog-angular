@@ -13,8 +13,22 @@ export class PostService {
 
   constructor() { }
 
-  getPosts(){
-    return this.httpClient.get<PostInterface[]>(this.baseUrl);
+  getPosts(filters: {
+    categoryId?: number,
+    tagId?: number
+  }){
+    let url = this.baseUrl;
+    const params = new URLSearchParams();
+    if(filters.categoryId) {
+      params.set('categoryId', filters.categoryId.toString());
+    }
+    if(filters.tagId) {
+      params.set('tagId', filters.tagId.toString());
+    }
+
+    url += '?' + params.toString();
+
+    return this.httpClient.get<PostInterface[]>(url);
   }
 
   getPostBySlug(slug: string) {

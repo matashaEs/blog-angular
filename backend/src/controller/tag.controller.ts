@@ -104,3 +104,13 @@ export const getPostTagsController = async(req: Request, res: Response) => {
 
     return res.json(postTags);
 }
+
+export const getTagBySlugController = async(req: Request, res: Response) => {
+    const {slug} = req.params;
+
+    const tag = await getTagBySlug(slug);
+
+    if(!tag) return res.status(404).json({message: 'Tag not found'});
+
+    return res.json(tag); 
+}

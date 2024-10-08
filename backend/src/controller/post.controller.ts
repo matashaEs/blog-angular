@@ -9,7 +9,21 @@ import { getTagsById } from "../services/tag.service";
 import { addPostTags, getPostTags } from "../services/post-tag.service";
 
 export const getPostsController = async(req: Request, res: Response) => {
-    const posts = await getAllPosts();
+    const schema = z.object({
+        categoryId: z.string().optional(),
+        tagId: z.string().optional()
+    });
+
+    const schemaValidator = schema.safeParse(req.query);
+    if(!schemaValidator.success)
+        return res.status(400).json(schemaValidator.error)
+
+    const {categoryId, tagId} = schemaValidator.data;
+
+    const posts = await getAllPosts({
+        categoryId: categoryId ? parseInt(categoryId) : undefined,
+        tagId: tagId ? parseInt(tagId) : undefined
+    });
 
     return res.json(posts);
 }
