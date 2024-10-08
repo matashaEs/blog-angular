@@ -31,18 +31,27 @@
             Comments
         </h2>
     
-    
-        <div class="flex mb-4">
-            <img class="w-10 h-10 rounded-full mr-4" src="people-icon.jpg" />
-    
-            <textarea name="" id=""
-                class="w-full h-[200px] border-solid border-[1px] border-gray-400 rounded-md p-4 outline-none"
-                placeholder="Enter your comment"></textarea>
-        </div>
-    
-        <button
-            class="bg-blue-500 text-white px-4 py-2 mb-10  rounded-md hover:bg-blue-600 transition-colors duration-300 float-right">
-            Post Comment</button>
+        @if(authService.session) {
+            <form (submit)="submitComment()" [formGroup]="form">
+                <div class="flex mb-4">
+                    <img class="w-10 h-10 rounded-full mr-4" src="people-icon.jpg" />
+            
+                    <textarea name="" id="" formControlName="content"
+                        class="w-full h-[200px] border-solid border-[1px] border-gray-400 rounded-md p-4 outline-none"
+                        placeholder="Enter your comment"></textarea>
+                </div>
+
+                <button type="submit"
+                class="bg-blue-500 text-white px-4 py-2 mb-10  rounded-md hover:bg-blue-600 transition-colors duration-300 float-right">
+                Post Comment</button>
+            </form>
+        } 
+        
+        @else {
+            <div class="text-center mb-10">
+                <a [routerLink]="['/auth/login']" class="text-blue-500">Login</a> to post a comment
+            </div>
+        }
     
         @for(comment of comments; track comment.id){
         <div class="flex w-full mb-5">

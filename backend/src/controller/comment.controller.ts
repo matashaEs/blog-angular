@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { z } from "zod";
 import { getPostById } from "../services/post.service";
 import { addComment, deleteComment, getCommentById, getPostComments, updateComment } from "../services/comment.service";
+import { User } from "../models/User";
 
 export const getCommentsController = async(req: Request, res: Response) => {
     const schema = z.object({
@@ -33,12 +34,14 @@ export const addCommentController = async(req: Request, res: Response) => {
         content: z.string()
     });
 
+    const user: User = (req as any).user;
+
     const schemaValidator = schema.safeParse(req.body);
     if(!schemaValidator.success)
         return res.status(400).json(schemaValidator.error)
 
     const {postId, content} = schemaValidator.data;
-    const userId = 1;
+    const userId = user.get('id');
 
     const post = await getPostById(postId);
 

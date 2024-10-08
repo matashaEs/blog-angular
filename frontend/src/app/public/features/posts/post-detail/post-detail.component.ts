@@ -7,12 +7,15 @@ import { PostTagInterface } from '../../../../core/interfaces/models/post-tag.mo
 import { TagService } from '../../../../core/services/tag.service';
 import { CommentInterface } from '../../../../core/interfaces/models/comment.model.interface';
 import { CommentService } from '../../../../core/services/comment.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-post-detail',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    ReactiveFormsModule
   ],
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.scss'
@@ -24,7 +27,12 @@ export class PostDetailComponent {
   route = inject(ActivatedRoute);
   tagsService = inject(TagService);
   postService = inject(PostService);
-  commentServie = inject(CommentService);
+  commentService = inject(CommentService);
+  authService = inject(AuthService);
+  fb = inject(FormBuilder)
+  form = this.fb.group({
+    content: ['']
+  })
 
   post?: PostInterface;
   postTags: PostTagInterface[] = [];
@@ -55,9 +63,24 @@ export class PostDetailComponent {
 
   loadComments() {
     if(this.post) {
-      this.commentServie.getComments(this.post.id).subscribe((data) => {
+      this.commentService.getComments(this.post.id).subscribe((data) => {
         this.comments = data;
       });
     }
+  }
+
+  submitComment() {
+    this.commentService.createComment(this.form.value.content!, this.post!.id).subscribe({
+      next: () => {
+        this.loadComments();
+        this.form.reset();
+      },
+      error: (err) => {
+        if(err && err.error && err.error.message){
+          alert(err.error.message)
+        }
+        console.error(err);
+      }
+    });
   }
 }
