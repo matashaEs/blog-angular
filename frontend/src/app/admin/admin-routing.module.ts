@@ -8,6 +8,10 @@ const routes: Routes = [
     component: AdminComponent,
     children:[
       {path: '', loadChildren: ()=> import('./features/posts/posts.module').then(m => m.PostsModule)},
+      {path: 'categories', 
+      loadChildren: ()=> import('./features/categories/categories.module').then(m => m.CategoriesModule)},
+      {path: 'tags', 
+      loadChildren: ()=> import('./features/tags/tags.module').then(m => m.TagsModule)}
     ],
   },
 ];
