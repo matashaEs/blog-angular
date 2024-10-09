@@ -65,7 +65,8 @@ export const updateCommentController = async(req: Request, res: Response) => {
         return res.status(400).json(schemaValidator.error)
 
     const {commentId, content} = schemaValidator.data;
-    const userId = 1;
+    const user = (req as any).user as User;
+    const userId = user.get('id');
 
     const comment = await getCommentById(commentId);
 
@@ -92,7 +93,8 @@ export const deleteCommentController = async(req: Request, res: Response) => {
         return res.status(400).json(schemaValidator.error)
 
     const {commentId} = schemaValidator.data;
-    const userId = 1;
+    const user = (req as any).user as User;
+    const userId = user.get('id');
 
     const comment = await getCommentById(commentId);
     if(!comment) {

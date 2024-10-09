@@ -2,6 +2,7 @@ import {Request, Response } from "express";
 import { addCategory, deleteCategory, getAllCategories, getCategoryById, getCategoryBySlug, updateCategory } from "../services/category.service";
 import { generateSlug } from "../shared/general.util";
 import { z } from "zod";
+import { User } from "../models/User";
 
 export const getCategories = async (req: Request, res: Response) => {
 
@@ -32,7 +33,8 @@ export const addCategoryController = async (req: Request, res: Response) =>{
     }
 
     const {name} = req.body;  
-    const userId = 1;
+    const user = (req as any).user as User;
+    const userId = user.get('id');
     let slug = generateSlug(name);
 
     const categoryBySlug = await getCategoryBySlug(slug);

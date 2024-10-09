@@ -7,6 +7,7 @@ import { getCategoryById } from "../services/category.service";
 import { Post } from "../models/Post";
 import { getTagsById } from "../services/tag.service";
 import { addPostTags, getPostTags } from "../services/post-tag.service";
+import { User } from "../models/User";
 
 export const getPostsController = async(req: Request, res: Response) => {
     const schema = z.object({
@@ -29,6 +30,8 @@ export const getPostsController = async(req: Request, res: Response) => {
 }
 
 export const addPostController = async(req: Request, res: Response) => {
+    const user = (req as any).user as User;
+    const userId = user.get('id');
     const schema = z.object({
         title: z.string(),
         content: z.string(),
@@ -56,7 +59,7 @@ export const addPostController = async(req: Request, res: Response) => {
     if(!category)
         return res.status(400).json({message: "Invalid cat"});
 
-    const post = await addPost(title, content, categoryId, 1, slug);
+    const post = await addPost(title, content, categoryId, userId, slug);
 
     if(tagIds && tagIds.length>0){
        await addPostTags(post.id, tagIds);
@@ -66,7 +69,8 @@ export const addPostController = async(req: Request, res: Response) => {
 }
 
 export const updatePostController = async (req: Request, res: Response) => {
-    const userId = 1;
+    const user = (req as any).user as User;
+    const userId = user.get('id');
 
     const schema = z.object({
         id: z.number(),
@@ -129,7 +133,8 @@ export const updatePostController = async (req: Request, res: Response) => {
 
 export const deletePostController = async(req: Request, res: Response) => {
 
-    const userId = 1;
+    const user = (req as any).user as User;
+    const userId = user.get('id');
     
     const schema = z.object({
         id: z.number(),
