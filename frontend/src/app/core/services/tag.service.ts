@@ -21,4 +21,33 @@ export class TagService {
   getTag(slug: string) {
     return this.httpClient.get<TagInterface>(this.baseUrl + '/getTagBySlug/'+slug);
   }
+
+  getTags() {
+    return this.httpClient.get<TagInterface[]>(this.baseUrl);
+  }
+
+  deleteTag(id: number) {
+    return this.httpClient.delete(this.baseUrl, {
+      body: {
+        id
+      }
+    });
+  }
+
+  addTag({name}:{name?: string}) {
+    return this.httpClient.post(this.baseUrl, {
+      name
+    });
+  }
+
+  updateTag({
+    id, name
+  }:{
+    id?: number,
+    name?: string
+  }) {
+    return this.httpClient.put(this.baseUrl, {
+      id, name
+    });
+  }
 }
