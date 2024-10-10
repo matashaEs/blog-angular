@@ -15,4 +15,22 @@ export class CategoryService {
   getCategoryBySug(slug: string) {
     return this.httpClient.get<CategoryInterface>(`${this.baseUrl}/slug/${slug}`);
   }
+
+  getCategories() {
+    return this.httpClient.get<CategoryInterface[]>(this.baseUrl);
+  }
+
+  deleteCategory(id: number) {
+    return this.httpClient.delete(`${this.baseUrl}`, {
+      body: {id}
+    });
+  }
+
+  addCategory({name}:{name: string}) {
+    return this.httpClient.post<CategoryInterface>(this.baseUrl, {name})
+  }
+
+  updateCategory({id, name}: {id: number, name: string}) {
+    return this.httpClient.put<CategoryInterface>(this.baseUrl, {id, name});
+  }
 }

@@ -3,6 +3,9 @@ import { addCategory, deleteCategory, getAllCategories, getCategoryById, getCate
 import { generateSlug } from "../shared/general.util";
 import { z } from "zod";
 import { User } from "../models/User";
+import { deletePost, getAllPosts } from "../services/post.service";
+import { deletePostTagRelations } from "../services/post-tag.service";
+import { deletePostComments } from "../services/comment.service";
 
 export const getCategories = async (req: Request, res: Response) => {
 
@@ -99,6 +102,14 @@ export const deleteCategoryController = async(req: Request, res: Response) =>  {
     if(!category) {
         res.status(404). json({message: 'Category not found'})
     }
+
+    const posts = await getAllPosts({
+        categoryId: id
+    })
+    const postIds = posts.map(post => post.get('id'));
+    await deletePostTagRelations(postIds);
+    await deletePostComments(postIds);
+    await deletePost(postIds);
 
     await deleteCategory(id);
 
