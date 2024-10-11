@@ -6,7 +6,7 @@ import { getCategories } from "./category.controller";
 import { getCategoryById } from "../services/category.service";
 import { Post } from "../models/Post";
 import { getTagsById } from "../services/tag.service";
-import { addPostTags, getPostTags } from "../services/post-tag.service";
+import { addPostTags, deletePostTagRelations, getPostTags } from "../services/post-tag.service";
 import { User } from "../models/User";
 
 export const getPostsController = async(req: Request, res: Response) => {
@@ -116,6 +116,16 @@ export const updatePostController = async (req: Request, res: Response) => {
 
     const postTagRelations = await getPostTags(id);
 
+    if(tagIds) {
+        const tagIdsToDelete = postTagRelations.filter((postTagRelations) => {
+            return !tagIds?.includes(postTagRelations.tagId!);
+        });
+
+        tagIdsToDelete.forEach(async (postTagRelations) => {
+            await postTagRelations.destroy();
+        })
+    }
+
     if(tagIds && tagIds.length>0){
         tagIds = tagIds?.filter((tagId)=> {
             const postTag = postTagRelations.find((postTagRelation)=>{
@@ -154,6 +164,8 @@ export const deletePostController = async(req: Request, res: Response) => {
 
     if(post.userId!==userId)
         return res.status(403).json({message: "You are not authorized to update this post"});
+
+    await deletePostTagRelations({ postId: id });
 
      await deletePost(id);
 

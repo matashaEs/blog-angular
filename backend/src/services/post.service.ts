@@ -29,7 +29,10 @@ export const getAllPosts = (filters: {
             where: filters.tagId? {
                 id: filters.tagId
             }: undefined
-        }]
+        }],
+        order: [
+            ['createdAt', 'DESC']
+        ]
     });
 }
 
