@@ -14,6 +14,7 @@ import { TagInterface } from '../../../../core/interfaces/models/tag.model.inter
 import { TagService } from '../../../../core/services/tag.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-post-editor',
@@ -26,7 +27,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatCardModule,
     MatSelectModule,
     MatIconModule,
-    MatChipsModule
+    MatChipsModule,
+    CommonModule
   ],
   templateUrl: './post-editor.component.html',
   styleUrl: './post-editor.component.scss'

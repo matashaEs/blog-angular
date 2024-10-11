@@ -8,8 +8,11 @@ import { deletePostTagRelations } from "../services/post-tag.service";
 import { deletePostComments } from "../services/comment.service";
 
 export const getCategories = async (req: Request, res: Response) => {
+    const user = (req as any).user as User;
 
-    const categories = await getAllCategories();
+    const categories = await getAllCategories({
+        userId: user.get('id')
+    });
 
     res.json(categories);
 }  

@@ -21,4 +21,12 @@ export class CommentService {
   createComment(content: string, postId: number) {
     return this.httpClient.post<CommentInterface[]>(`${this.baseUrl}`, {content, postId});
   }
+
+  deleteComment(commentId: number) {
+    return this.httpClient.delete<CommentInterface>(`${this.baseUrl}`, {
+      body: {
+        commentId
+      }
+    })
+  }
 }

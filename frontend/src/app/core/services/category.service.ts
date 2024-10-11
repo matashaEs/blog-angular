@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CategoryInterface } from '../interfaces/models/category.model.interface';
+import { CommentInterface } from '../interfaces/models/comment.model.interface';
 
 @Injectable({
   providedIn: 'root'

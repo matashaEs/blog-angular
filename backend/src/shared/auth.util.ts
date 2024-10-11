@@ -32,6 +32,20 @@ export function authenticateJWT(req: Request, res: Response, next:Function) {
         return res.status(401).json({message: 'Access Denied.'});
     }
 
+    authenticateJWT_common(res, req, next, token);
+}
+
+export function authenticateJWTOptional(req: Request, res: Response, next:Function) {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+
+    authenticateJWT_common(res, req, next, token);
+}
+
+function authenticateJWT_common(res: Response, req: Request, next: Function, token?: string,) {
+    if(!token) {
+        return next();
+    }
+
     const verified = verifyToken(token);
 
     if(!verified){

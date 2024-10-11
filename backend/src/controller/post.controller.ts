@@ -1,19 +1,20 @@
-import {Request, Response } from "express";
+import { Request, Response } from "express";
 import { addPost, deletePost, getAllPosts, getPostById, getPostBySlug, updatePost } from "../services/post.service";
 import { z } from "zod";
 import { generateSlug } from "../shared/general.util";
-import { getCategories } from "./category.controller";
 import { getCategoryById } from "../services/category.service";
-import { Post } from "../models/Post";
 import { getTagsById } from "../services/tag.service";
 import { addPostTags, deletePostTagRelations, getPostTags } from "../services/post-tag.service";
 import { User } from "../models/User";
+import { deletePostComments, getTotalCommentsByPostIds } from "../services/comment.service";
 
 export const getPostsController = async(req: Request, res: Response) => {
     const schema = z.object({
         categoryId: z.string().optional(),
         tagId: z.string().optional()
     });
+
+    const user = (req as any).user as User;
 
     const schemaValidator = schema.safeParse(req.query);
     if(!schemaValidator.success)
@@ -23,10 +24,25 @@ export const getPostsController = async(req: Request, res: Response) => {
 
     const posts = await getAllPosts({
         categoryId: categoryId ? parseInt(categoryId) : undefined,
-        tagId: tagId ? parseInt(tagId) : undefined
+        tagId: tagId ? parseInt(tagId) : undefined,
+        userId: user?.get('id')
     });
 
-    return res.json(posts);
+    let postIds = posts.map((post) => post.id);
+    const totalCommentsByPostIds = await getTotalCommentsByPostIds(postIds);
+
+    const postsWithComments = posts.map((post) => {
+        const totalComments = totalCommentsByPostIds.find((
+            totalCommentsByPostId
+        ) => totalCommentsByPostId.postId === post.id);
+
+        return {
+            ...post.toJSON(),
+            totalComments: totalComments?.get('totalComments') || 0
+        }
+    })
+
+    return res.json(postsWithComments);
 }
 
 export const addPostController = async(req: Request, res: Response) => {
@@ -166,6 +182,8 @@ export const deletePostController = async(req: Request, res: Response) => {
         return res.status(403).json({message: "You are not authorized to update this post"});
 
     await deletePostTagRelations({ postId: id });
+
+    await deletePostComments(id);
 
      await deletePost(id);
 

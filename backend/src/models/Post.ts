@@ -13,7 +13,8 @@ export class Post extends Model<Post> {
   title?: string;
 
   @Column({
-    allowNull: false
+    allowNull: false,
+    type: 'TEXT'
   })
   content?: string;
 

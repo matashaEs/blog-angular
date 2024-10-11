@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { addTagController, deleteTagController, getTagBySlugController, getPostTagsController, getTagsController, updateTagController } from "../controller/tag.controller";
-import { authenticateJWT } from "../shared/auth.util";
+import { authenticateJWT, authenticateJWTOptional } from "../shared/auth.util";
 
 const router = Router();
 
-router.get('/', getTagsController);
+router.get('/', authenticateJWTOptional, getTagsController);
 router.post('/', authenticateJWT, addTagController);
 router.put('/', authenticateJWT, updateTagController);
 router.delete('/', authenticateJWT, deleteTagController);

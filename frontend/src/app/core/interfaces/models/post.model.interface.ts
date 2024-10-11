@@ -13,4 +13,5 @@ export interface PostInterface {
     category: CategoryInterface;
     createdAt: string;
     updatedAt: string;
+    totalComments?: number;
 }

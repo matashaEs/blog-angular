@@ -13,7 +13,9 @@ const routes: Routes = [
       {path: 'categories', 
       loadChildren: ()=> import('./features/categories/categories.module').then(m => m.CategoriesModule)},
       {path: 'tags', 
-      loadChildren: ()=> import('./features/tags/tags.module').then(m => m.TagsModule)}
+      loadChildren: ()=> import('./features/tags/tags.module').then(m => m.TagsModule)},
+      {path: 'comments', 
+      loadChildren: ()=> import('./features/comments/comments.module').then(m => m.CommentsModule)}
     ],
   },
 ];

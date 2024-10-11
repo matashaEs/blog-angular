@@ -8,7 +8,10 @@ import { User } from "../models/User";
 
 
 export const getTagsController = async(req: Request, res: Response) => {
-    const tags = await getAllTags();
+    const user = (req as any).user as User;
+    const tags = await getAllTags({
+        userId: user.get('id')
+    });
 
     return res.json(tags);
 }
