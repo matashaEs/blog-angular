@@ -56,7 +56,7 @@ FRONTEND_URL=http://localhost:4200
 5. In the **backend/src/database/index.ts** file, change **force: false** to **force: true** for database initialization.
 
 6. To set up Resend:
-- Go to Resend.com.
+- Go to [Resend.com](https://resend.com/).
 - Sign up and create a team.
 - Obtain your API Key.
 - Add to the **.env**:
