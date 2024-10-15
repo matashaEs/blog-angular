@@ -74,3 +74,50 @@ npm run dev
 ```
 
 9. In the **backend/src/database/index.ts** file, change **force: true** to **force: false** to prevent the database from updating after each save. This change ensures that your database schema is not recreated on every server start.
+
+## Home page
+<img width="1276" alt="Screenshot 2024-10-15 at 16 52 40" src="https://github.com/user-attachments/assets/4b4e056a-4363-454b-aaa3-22c598391043">
+
+## Post detail
+![screencapture-localhost-4200-post-guest-blogging-2024-10-15-16_45_28 (1)](https://github.com/user-attachments/assets/2d906a8c-950e-4186-95c5-5d6366030ace)
+
+## Filter by category
+<img width="1278" alt="Screenshot 2024-10-15 at 16 53 05" src="https://github.com/user-attachments/assets/cf862a08-fe3e-4035-ae0d-4f4f47c0c300">
+
+## Filter by tag
+<img width="1278" alt="Screenshot 2024-10-15 at 16 53 49" src="https://github.com/user-attachments/assets/839b76b7-3b9f-44da-a710-8a13793678e6">
+
+## Posts on the admin panel
+<img width="1278" alt="Screenshot 2024-10-15 at 16 54 19" src="https://github.com/user-attachments/assets/d44d7021-a587-449f-b9cf-8195ff19fffd">
+
+## Edit post page
+![screencapture-localhost-4200-admin-posts-edit-guest-blogging-2024-10-15-16_54_48](https://github.com/user-attachments/assets/d5878a2c-b688-4f48-b833-f445b6a398c7)
+
+## Categories on the admin panel
+<img width="1277" alt="Screenshot 2024-10-15 at 16 56 03" src="https://github.com/user-attachments/assets/64a6d5b2-900d-4a46-aef3-8db6d591e3f5">
+
+## Edit category Page
+<img width="1280" alt="Screenshot 2024-10-15 at 16 56 17" src="https://github.com/user-attachments/assets/a0a2525d-9fb9-4395-b705-3f3964631618">
+
+## Tags on the admin panel
+<img width="1277" alt="Screenshot 2024-10-15 at 16 57 34" src="https://github.com/user-attachments/assets/fe924054-24a5-4ec8-ad09-ef5bb5017bb5">
+
+## Edit tag page
+<img width="1278" alt="Screenshot 2024-10-15 at 16 57 21" src="https://github.com/user-attachments/assets/adfcd2d1-4237-424e-86be-12a4332b8348">
+
+## Register page
+<img width="1279" alt="Screenshot 2024-10-15 at 16 33 49" src="https://github.com/user-attachments/assets/53a615cd-b673-4b3f-a9b4-16d3a45c33c0">
+
+## Login page
+<img width="1279" alt="Screenshot 2024-10-15 at 16 33 34" src="https://github.com/user-attachments/assets/6fa31ba9-e21c-4e6e-b9ce-bda383461d43">
+
+## Reset password pages
+
+<img width="1279" alt="Screenshot 2024-10-15 at 16 34 18" src="https://github.com/user-attachments/assets/2c765dd5-19b5-4444-be09-d8b4d7e13ce3">
+<img width="1277" alt="Screenshot 2024-10-15 at 16 34 56" src="https://github.com/user-attachments/assets/95a682bb-74df-452e-a669-d365e37b5129">
+
+
+
+
+
+
