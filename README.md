@@ -73,4 +73,4 @@ npm run build
 npm run dev
 ```
 
-9. In the **backend/src/database/index.ts** file, change **force: true** to **force: false** to prevent the database from updating after each save. This change ensures that your database schema is not recreated on every server start.
+9. In the **backend/src/database/index.ts** file, change **force: true** to **force: false** to prevent the database from updating after every server start.
